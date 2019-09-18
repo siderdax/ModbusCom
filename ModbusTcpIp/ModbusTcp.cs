@@ -21,7 +21,14 @@ namespace ModbusTcpIp
         /// </summary>
         public void StartServer()
         {
-            server = new TcpListener(IPAddress.Parse(Ip), Int32.Parse(Port));
+            if(Ip == null || Ip.Length == 0)
+            {
+                server = new TcpListener(IPAddress.Any, Int32.Parse(Port));
+            }
+            else
+            {
+                server = new TcpListener(IPAddress.Parse(Ip), Int32.Parse(Port));
+            }
             server.Start();
         }
 
@@ -29,7 +36,14 @@ namespace ModbusTcpIp
         {
             Ip = address;
             Port = port;
-            server = new TcpListener(IPAddress.Parse(address), Int32.Parse(port));
+            if(address == null || address.Length == 0)
+            {
+                server = new TcpListener(IPAddress.Any, Int32.Parse(port));
+            }
+            else
+            {
+                server = new TcpListener(IPAddress.Parse(address), Int32.Parse(port));
+            }
             server.Start();
         }
 
