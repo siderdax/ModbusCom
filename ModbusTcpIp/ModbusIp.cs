@@ -8,6 +8,7 @@ namespace ModbusTcpIp
     {
         private bool disposed = false;
         private TcpClient client;
+        public TcpClient Client { get; private set; }
 
         public string Ip { get; private set; }
         public string Port { get; private set; }

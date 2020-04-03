@@ -9,12 +9,14 @@ namespace ModbusTcpIp
 {
     public class ModbusTcp : Modbus, IDisposable
     {
-        private TcpListener server;
-        private ModbusTcpSlave[] modbusTcpSlaves = new ModbusTcpSlave[MAX_SLAVE_ID];
         private bool disposed = false;
+        private TcpListener server;
+        public TcpListener Server { get; private set; }
 
         public string Ip { get; private set; }
         public string Port { get; private set; }
+
+        private ModbusTcpSlave[] modbusTcpSlaves = new ModbusTcpSlave[MAX_SLAVE_ID];
 
         /// <summary>
         /// TCP Slave (Server)
