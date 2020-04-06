@@ -10,8 +10,8 @@ namespace ModbusTcpIp
     public class ModbusTcp : Modbus, IDisposable
     {
         private bool disposed = false;
-        private TcpListener server;
-        public TcpListener Server { get; private set; }
+        private TcpListener listener;
+        public TcpListener Listener { get => listener; }
 
         public string Ip { get; private set; }
         public string Port { get; private set; }
@@ -25,13 +25,13 @@ namespace ModbusTcpIp
         {
             if(Ip == null || Ip.Length == 0)
             {
-                server = new TcpListener(IPAddress.Any, Int32.Parse(Port));
+                listener = new TcpListener(IPAddress.Any, Int32.Parse(Port));
             }
             else
             {
-                server = new TcpListener(IPAddress.Parse(Ip), Int32.Parse(Port));
+                listener = new TcpListener(IPAddress.Parse(Ip), Int32.Parse(Port));
             }
-            server.Start();
+            listener.Start();
         }
 
         public void StartServer(string address, string port)
@@ -40,24 +40,24 @@ namespace ModbusTcpIp
             Port = port;
             if(address == null || address.Length == 0)
             {
-                server = new TcpListener(IPAddress.Any, Int32.Parse(port));
+                listener = new TcpListener(IPAddress.Any, Int32.Parse(port));
             }
             else
             {
-                server = new TcpListener(IPAddress.Parse(address), Int32.Parse(port));
+                listener = new TcpListener(IPAddress.Parse(address), Int32.Parse(port));
             }
-            server.Start();
+            listener.Start();
         }
 
         public void StopServer()
         {
-            server.Stop();
+            listener.Stop();
         }
 
         public void StartTcpSlave(byte slaveId)
         {
             ThrowRangeException(slaveId);
-            modbusTcpSlaves[slaveId - 1] = ModbusTcpSlave.CreateTcp(slaveId, server);
+            modbusTcpSlaves[slaveId - 1] = ModbusTcpSlave.CreateTcp(slaveId, listener);
             modbusTcpSlaves[slaveId - 1].DataStore = DataStoreFactory.CreateDefaultDataStore();
             Thread slaveThread = new Thread(modbusTcpSlaves[slaveId - 1].Listen);
             slaveThread.Start();
