@@ -82,7 +82,6 @@ namespace ModbusTcpIp
             {
                 if (disposing)
                 {
-                    StopClient();
                     StopIpMaster();
                 }
                 disposed = true;
