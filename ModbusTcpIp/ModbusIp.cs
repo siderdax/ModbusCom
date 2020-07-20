@@ -16,7 +16,7 @@ namespace ModbusTcpIp
         private ModbusIpMaster modbusIpMaster;
 
         /// <summary>
-        /// TCP Master (Client)
+        /// TCP Client
         /// </summary>
         public void StartClient()
         {
@@ -48,7 +48,7 @@ namespace ModbusTcpIp
             return modbusIpMaster.ReadHoldingRegisters(slaveId, (ushort)(address - 1), length);
         }
 
-        public void WriteMasterHoldingRegister(byte slaveId, ushort address, ushort register)
+        public void WriteIpMasterHoldingRegister(byte slaveId, ushort address, ushort register)
         {
             modbusIpMaster.WriteSingleRegister(slaveId, (ushort)(address - 1), register);
         }
@@ -87,11 +87,6 @@ namespace ModbusTcpIp
                 }
                 disposed = true;
             }
-        }
-
-        ~ModbusIp()
-        {
-            Dispose(false);
         }
     }
 }
