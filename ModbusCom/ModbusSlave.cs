@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Modbus.Data;
 using Modbus.Device;
 
-namespace ModbusTcpIp
+namespace ModbusCom
 {
     public class ModbusSlave : Modbus
     {

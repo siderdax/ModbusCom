@@ -7,8 +7,8 @@
     <ProjectGuid>{4E744598-DD29-4577-A95C-588DDD27B373}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ModbusTcpIp</RootNamespace>
-    <AssemblyName>ModbusTcpIp</AssemblyName>
+    <RootNamespace>ModbusCom</RootNamespace>
+    <AssemblyName>ModbusCom</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

@@ -5,7 +5,7 @@ using System;
 using System.Net;
 using System.Net.Sockets;
 
-namespace ModbusTcpIp
+namespace ModbusCom
 {
     public class ModbusTcp : Modbus, IDisposable
     {

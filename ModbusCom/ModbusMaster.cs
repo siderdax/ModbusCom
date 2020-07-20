@@ -2,7 +2,7 @@
 using System.IO.Ports;
 using Modbus.Device;
 
-namespace ModbusTcpIp
+namespace ModbusCom
 {
     public class ModbusMaster : Modbus, IDisposable
     {

@@ -2,7 +2,7 @@
 using System;
 using Modbus.Device;
 
-namespace ModbusTcpIp
+namespace ModbusCom
 {
     public class ModbusIp : Modbus
     {
