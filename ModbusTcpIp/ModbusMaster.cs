@@ -84,8 +84,8 @@ namespace ModbusTcpIp
             {
                 if (disposing)
                 {
-                    _serial.Dispose();
                     StopSerialMaster();
+                    _serial.Dispose();
                 }
                 disposed = true;
             }

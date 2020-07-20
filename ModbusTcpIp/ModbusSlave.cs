@@ -108,9 +108,8 @@ namespace ModbusTcpIp
             {
                 if (disposing)
                 {
-                    _serial.Close();
-                    _serial.Dispose();
                     ClearSerialSlave();
+                    _serial.Dispose();
                 }
                 disposed = true;
             }
