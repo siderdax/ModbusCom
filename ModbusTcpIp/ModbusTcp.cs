@@ -1,9 +1,9 @@
-﻿using Modbus.Data;
+﻿using System.Threading.Tasks;
+using Modbus.Data;
 using Modbus.Device;
 using System;
 using System.Net;
 using System.Net.Sockets;
-using System.Threading;
 
 namespace ModbusTcpIp
 {
@@ -19,7 +19,7 @@ namespace ModbusTcpIp
         private ModbusTcpSlave[] modbusTcpSlaves = new ModbusTcpSlave[MAX_SLAVE_ID];
 
         /// <summary>
-        /// TCP Slave (Server)
+        /// TCP Server
         /// </summary>
         public void StartServer()
         {
@@ -59,8 +59,7 @@ namespace ModbusTcpIp
             ThrowRangeException(slaveId);
             modbusTcpSlaves[slaveId - 1] = ModbusTcpSlave.CreateTcp(slaveId, listener);
             modbusTcpSlaves[slaveId - 1].DataStore = DataStoreFactory.CreateDefaultDataStore();
-            Thread slaveThread = new Thread(modbusTcpSlaves[slaveId - 1].Listen);
-            slaveThread.Start();
+            Task.Run(() => modbusTcpSlaves[slaveId - 1].Listen());
         }
 
         public void StopTcpSlave(byte slaveId)
@@ -128,11 +127,6 @@ namespace ModbusTcpIp
                 }
                 disposed = true;
             }
-        }
-
-        ~ModbusTcp()
-        {
-            Dispose(false);
         }
     }
 }
