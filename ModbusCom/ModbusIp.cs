@@ -20,12 +20,12 @@ namespace ModbusCom
         /// </summary>
         public void StartClient()
         {
-            client = new TcpClient(Ip, Int32.Parse(Port));
+            client = new TcpClient(Ip, int.Parse(Port));
         }
 
         public void StartClient(string address, string port)
         {
-            client = new TcpClient(address, Int32.Parse(port));
+            client = new TcpClient(address, int.Parse(port));
         }
 
         public void StopClient()
@@ -78,7 +78,7 @@ namespace ModbusCom
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!disposed)
             {
                 if (disposing)
                 {
