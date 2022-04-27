@@ -1,7 +1,4 @@
-﻿using System.Diagnostics;
-using System;
-using System.IO.Ports;
-using System.Threading;
+﻿using System;
 using System.Threading.Tasks;
 using Modbus.Data;
 using Modbus.Device;
@@ -11,38 +8,38 @@ namespace ModbusCom
     public class ModbusSlave : Modbus
     {
         private bool disposed = false;
-        private SerialPort _serial;
-        public SerialPort Serial { get => _serial; }
+        public RtuStreamDistributor StreamDistributor { get; private set; }
 
         public string Port { get; private set; }
         public int Baud { get; private set; }
 
-        private ModbusSerialSlave[] modbusSerialSlaves = new ModbusSerialSlave[MAX_SLAVE_ID];
+        private readonly ModbusSerialSlave[] modbusSerialSlaves = new ModbusSerialSlave[MAX_SLAVE_ID];
 
         /// <summary>
         /// TCP Slave
         /// </summary>
         public void StartSlave()
         {
-            _serial = new SerialPort(Port, Baud);
-            _serial.Open();
+            StreamDistributor = new RtuStreamDistributor { PortName = Port, BaudRate = Baud };
+            StreamDistributor.Open();
         }
 
         public void StartSlave(string port, int baud)
         {
-            _serial = new SerialPort(port, baud);
-            _serial.Open();
+            StreamDistributor = new RtuStreamDistributor { PortName = port, BaudRate = baud };
+            StreamDistributor.Open();
         }
 
         public void StopSlave()
         {
-            _serial.Close();
+            StreamDistributor.Close();
         }
 
         public void StartSerialSlave(byte slaveId)
         {
             ThrowRangeException(slaveId);
-            modbusSerialSlaves[slaveId - 1] = ModbusSerialSlave.CreateRtu(slaveId, _serial);
+            modbusSerialSlaves[slaveId - 1] = ModbusSerialSlave.CreateRtu(
+                slaveId, new RtuStreamResource(StreamDistributor, slaveId));
             modbusSerialSlaves[slaveId - 1].DataStore = DataStoreFactory.CreateDefaultDataStore();
             Task.Run(() => modbusSerialSlaves[slaveId - 1].Listen());
         }
@@ -109,7 +106,7 @@ namespace ModbusCom
                 if (disposing)
                 {
                     ClearSerialSlave();
-                    _serial.Dispose();
+                    StreamDistributor.Dispose();
                 }
                 disposed = true;
             }

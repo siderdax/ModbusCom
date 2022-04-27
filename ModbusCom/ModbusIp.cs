@@ -60,8 +60,8 @@ namespace ModbusCom
 
         public ModbusIp()
         {
-            Ip = String.Empty;
-            Port = String.Empty;
+            Ip = string.Empty;
+            Port = string.Empty;
         }
 
         public ModbusIp(string ip, string port) : this()

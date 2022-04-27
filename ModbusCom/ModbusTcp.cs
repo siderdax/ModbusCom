@@ -25,11 +25,11 @@ namespace ModbusCom
         {
             if(Ip == null || Ip.Length == 0)
             {
-                listener = new TcpListener(IPAddress.Any, Int32.Parse(Port));
+                listener = new TcpListener(IPAddress.Any, int.Parse(Port));
             }
             else
             {
-                listener = new TcpListener(IPAddress.Parse(Ip), Int32.Parse(Port));
+                listener = new TcpListener(IPAddress.Parse(Ip), int.Parse(Port));
             }
             listener.Start();
         }
@@ -40,11 +40,11 @@ namespace ModbusCom
             Port = port;
             if(address == null || address.Length == 0)
             {
-                listener = new TcpListener(IPAddress.Any, Int32.Parse(port));
+                listener = new TcpListener(IPAddress.Any, int.Parse(port));
             }
             else
             {
-                listener = new TcpListener(IPAddress.Parse(address), Int32.Parse(port));
+                listener = new TcpListener(IPAddress.Parse(address), int.Parse(port));
             }
             listener.Start();
         }

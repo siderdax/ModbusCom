@@ -23,6 +23,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -51,12 +52,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RtuStreamDistributor.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Modbus.cs" />
     <Compile Include="ModbusIp.cs" />
     <Compile Include="ModbusMaster.cs" />
     <Compile Include="ModbusSlave.cs" />
     <Compile Include="ModbusTcp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RtuStreamResource.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
